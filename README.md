@@ -1,2 +1,2 @@
-# image-editor
-Editor for images
+﻿# image-editor
+Editor for images, WiP
