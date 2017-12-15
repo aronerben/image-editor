@@ -53,3 +53,7 @@ dkms.conf
 
 # Compiled
 bin
+
+# Vim temps
+*.swp
+*.swo
