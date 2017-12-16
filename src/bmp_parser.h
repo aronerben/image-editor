@@ -1,6 +1,7 @@
 #ifndef TEST_H
 #define TEST_H
 
+#include <stdint.h>
 //saves structure in memory according to bmp standard (fileheader size 16 to 14)
 #pragma pack(1)
 typedef struct {
@@ -9,6 +10,7 @@ typedef struct {
 	uint32_t reserved;
 	uint32_t data_offset;
 } file_header;
+
 #pragma pack()
 
 #pragma pack(1)
@@ -27,9 +29,18 @@ typedef struct {
 } info_header;
 #pragma pack()
 
+//struct to contain entire image (headers + data)
 typedef struct {
 	file_header file_header;
 	info_header info_header;
-} full_header;
+	uint8_t *bitmap_data;
+} bmp_image;
+
+/*
+ * @brief		Parses bmp file into structs
+ * @param[in] file	File to parse
+ * @param[in] bmp	Bmp struct to fill
+ */
+int parse_bmp(FILE *file, bmp_image *bmp);
 
 #endif
