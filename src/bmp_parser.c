@@ -44,13 +44,15 @@ int parse_bmp_image(FILE *file, bmp_image *bmp)
 	//allocate memory for the bmp data and read in data
 	bmp->bitmap_data = (uint8_t*)malloc(bmp->info_header.image_size);
 	(void)fread(bmp->bitmap_data, bmp->info_header.image_size, 1, file);
+	
+	//close file buffer after struct completed
+	(void)fclose(file);
 
 	//check for invalid flags
 	if(bmp->file_header.type != 0x4D42 || bmp->info_header.bit_depth != 24
 			|| bmp->info_header.image_size == 0) {
 		return 0;
 	}
-	(void)fclose(file);
 	return 1;
 }
 
