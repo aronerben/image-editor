@@ -57,3 +57,7 @@ bin
 # Vim temps
 *.swp
 *.swo
+
+# Images
+*.bmp
+*.BMP
