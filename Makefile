@@ -2,7 +2,7 @@
 TARGET        := bin/image-editor
 
 # implementation files
-SOURCES       := src/bmp_parser.c
+SOURCES       := src/main.c
 
 # test implementations
 TSTSOURCES    := tests/tests.c

@@ -64,4 +64,23 @@ void mirror_horiz(bmp_image *bmp);
  */
 void create_bmp_image(bmp_image *bmp);
 
+/*
+ * @brief		Changes the brightness of the image, by increasing/decrease every pixels RGB components values
+ * @param[in] bmp	Bmp struct to edit brightness
+ * @param[in] amount	The amount [-255 to 255] of brightness change
+ * @returns		Returns a copy of the Bmp struct, because changing brightness causes information loss
+ */
+bmp_image edit_brightness(bmp_image *bmp, int amount);
+
+/*
+ * @brief		Rotates an image by an angle	
+ * @param[in] bmp	Bmp struct to set rotation information
+ * @param[in] angle	The angle [0, 360[ by what to rotate the image
+ * @returns		Returns a new Bmp struct, because rotation can cause changes in width and height of the image
+ */
+bmp_image rotate(bmp_image *bmp, int angle);
+
+
+
+
 #endif
