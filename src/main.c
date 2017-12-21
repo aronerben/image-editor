@@ -17,7 +17,9 @@ int main(int argc, char *argv[])
 	}
 
 	//bmp edit functions
+	get_average_pixel(bmp);
 	bmp_image copy = edit_brightness(bmp, -100); 
+	get_average_pixel(bmp);
 	create_image(&copy);
 
 	//free memory

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h> 
 #include "bmp_editor.h"
 
 int parse_image(FILE *file, bmp_image *bmp)
@@ -97,6 +98,29 @@ bmp_image rotate(bmp_image *bmp, int angle)
 	//make distance corner to middle new distance from center to sides, 
 	//fill canvas with 0,0,0 pixels,
 	//rotate with rotation matrix,
-	//check for edge smoothing)
-	
+	//check for edge smoothing)	
+	return *bmp;
 }
+
+int* get_average_pixel(bmp_image *bmp)
+{
+	//temp array to calculate the averages with double
+	double color_calc[3];
+	//array to return at the end (=> dynamic memory)
+	int* average_colors = malloc(sizeof(int) * 3);
+	
+	//default is BGR => remaps color component sums to RGB
+	for(int i = 0; i < bmp->info_header.image_size; i += 3) {
+		color_calc[2] += *(bmp->bitmap_data + i);	
+		color_calc[1] += *(bmp->bitmap_data + i + 1);	
+		color_calc[0] += *(bmp->bitmap_data + i + 2);	
+	}
+	
+	//get averages for each RGB component, round doubles to int
+	for(int i = 0; i <= 2; i++) {
+		average_colors[i] = round(color_calc[i] / (double)(bmp->info_header.image_size / 3));
+	}
+
+	return average_colors;
+}
+

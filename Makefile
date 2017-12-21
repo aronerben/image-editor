@@ -30,7 +30,7 @@ FULLTARGET    := $(CURDIR)/$(TARGET)
 CC            = gcc
 CFLAGS        = -std=c99 -Wall -g
 CPPFLAGS      = -MD -Isrc -Itests -I$(TSTINCDIR) -I$(CUNITINCDIR) -DTARGET=$(FULLTARGET)
-LDFLAGS       = -static -z muldefs 
+LDFLAGS       = -z muldefs -lm 
 
 # targets which get always visited (without checking any up-to-date state)
 .PHONY: default clean test doc mkdir

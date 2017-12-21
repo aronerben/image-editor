@@ -10,7 +10,6 @@ typedef struct {
 	uint32_t reserved;
 	uint32_t data_offset;
 } file_header;
-
 #pragma pack()
 
 #pragma pack(1)
@@ -35,6 +34,8 @@ typedef struct {
 	info_header info_header;
 	uint8_t *bitmap_data;
 } bmp_image;
+
+//MAYBE TODO(struct for pixel)
 
 /*
  * @brief		Parses bmp file into structs
@@ -80,7 +81,11 @@ bmp_image edit_brightness(bmp_image *bmp, int amount);
  */
 bmp_image rotate(bmp_image *bmp, int angle);
 
-
-
+/*
+ * @brief		Retrieves the average pixel color	
+ * @param[in] bmp	Bmp struct to set rotation information
+ * @returns		Returns an array size 3 with RGB of average pixel 	
+ */
+int* get_average_pixel(bmp_image *bmp);
 
 #endif
