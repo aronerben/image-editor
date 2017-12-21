@@ -2,7 +2,9 @@
 #define TEST_H
 
 #include <stdint.h>
-//saves structure in memory according to bmp standard (fileheader size 16 to 14)
+
+//compiler directive, saves struct in memory according to bmp standard (fileheader size 16 to 14)
+//required for proper fwrite() and fread() use
 #pragma pack(1)
 typedef struct {
 	uint16_t type;
