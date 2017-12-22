@@ -132,3 +132,8 @@ int* get_average_pixel(bmp_image *bmp)
 	return average_colors;
 }
 
+void draw_line(bmp_image *bmp, int* start_pt, int* end_pt)
+{
+	//TODO(make linedrawing)
+}
+

@@ -17,14 +17,14 @@ int main(int argc, char *argv[])
 	}
 
 	//bmp edit functions, testing out
-	get_average_pixel(bmp);
+	(void)get_average_pixel(bmp);
 	bmp_image copy = edit_brightness(bmp, -100); 
-	get_average_pixel(bmp);
-	create_image(&copy);
+	(void)get_average_pixel(bmp);
+	(void)create_image(&copy);
 
 	//free bmp struct memory
-	free(bmp->bitmap_data);
-	free(bmp);	
+	(void)free(bmp->bitmap_data);
+	(void)free(bmp);	
 	return EXIT_SUCCESS;
 }
 
