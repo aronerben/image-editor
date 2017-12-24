@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 
 	//bmp edit functions, testing out
 	(void)get_average_pixel(bmp);
-	bmp_image copy = edit_brightness(bmp, -100); 
+	bmp_image copy = edit_brightness(bmp, -5); 
 	(void)get_average_pixel(bmp);
 	(void)create_image(&copy);
 
@@ -27,5 +27,3 @@ int main(int argc, char *argv[])
 	(void)free(bmp);	
 	return EXIT_SUCCESS;
 }
-
-

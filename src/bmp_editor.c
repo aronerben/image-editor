@@ -4,6 +4,7 @@
 #include "bmp_editor.h"
 
 #define BYTE_SIZE 1
+#define COLOR_COMPONENTS 3
 
 int parse_image(FILE *file, bmp_image *bmp)
 {
@@ -17,11 +18,23 @@ int parse_image(FILE *file, bmp_image *bmp)
 	(void)fseek(file, bmp->file_header.data_offset, SEEK_SET);
 
 	//allocate memory for the bmp data and read in data
-	bmp->bitmap_data = (uint8_t*)malloc(bmp->info_header.image_size);
+	bmp->bitmap_data = (pixel*)malloc(bmp->info_header.image_size);
 	(void)fread(bmp->bitmap_data, bmp->info_header.image_size, BYTE_SIZE, file);
 
 	//close file buffer after struct completed
 	(void)fclose(file);
+
+	//(optional for now) fix colors from BGR to RGB (swap red and blue around)
+	/*
+	   for(int i = 0; i < bmp->info_header.image_size / 3; i++) {
+	//temp var, pointer arithmetic
+	pixel *cur = bmp->bitmap_data + i;
+	//swap var for red
+	uint8_t temp_swap = cur->red;
+	cur->red = cur->blue;
+	cur->blue = temp_swap;
+	}
+	 */
 
 	//check for invalid flags
 	//0x4D42 is "BM", required starting string for bmp
@@ -64,37 +77,30 @@ void mirror_horiz(bmp_image *bmp)
 	//store image width for easier access
 	int32_t image_width = bmp->info_header.width;
 
-	//go through every image-row up to the height
-	for(int i = 0; i < bmp->info_header.image_size; i += image_width * 3) {
-		//set up "mirror"-swapping in each width-array
-		for(int j = 0; j <= (image_width - 1) / 2; j++) {
-			//swap every RGB component of start pixel with target pixel
-			for(int k = 0; k <= 2; k++) {
-				//use scaling factor of 3 for shifting between pixels
-				//regular 2 way swap operation with temp var
-				int temp_swap = *(bmp->bitmap_data + i + (j * 3) + k);
-				*(bmp->bitmap_data + i + (j * 3) + k) = *(bmp->bitmap_data + i + ((image_width - j - 1) * 3) + k);
-				*(bmp->bitmap_data + i + ((image_width - j - 1) * 3) + k) = temp_swap;
-			}
-		}
-	}
+	//go through every pixel row through to max height	
+	for(int i = 0; i < bmp->info_header.image_size / COLOR_COMPONENTS; i += image_width) {
+		//swap pixels in a row by swapping the ends and moving to the middle from both sides
+		for(int j = 0; j < (image_width - 1) / 2; j++) {
+			//regular 2 way swap with temp variable
+			pixel temp_swap = *(bmp->bitmap_data + i + j);
+			*(bmp->bitmap_data + i + j) = *(bmp->bitmap_data + i + (image_width - 1 - j));
+			*(bmp->bitmap_data + i + (image_width - 1 - j)) = temp_swap;
+		}	
+	} 
 }
 
 bmp_image edit_brightness(bmp_image *bmp, int amount)
 {
-	//create copy because changing an images brightness causes 
+	//create copy because changing an image's brightness causes 
 	//information loss and is therefore not always reversible
 	bmp_image copy = *bmp;
 
-	//go through every pixels RGB component and increase by amount, limited to max 255 and min 0
-	for(int i = 0; i < copy.info_header.image_size; i++) {
-		if(*(copy.bitmap_data + i) + amount > 255) {
-			*(copy.bitmap_data + i) = 255; 
-		} else if(*(copy.bitmap_data + i) + amount < 0) {
-			*(copy.bitmap_data + i) = 0;
-		} else {
-			*(copy.bitmap_data + i) += amount;
-		}
+	//go through every pixels and increase by amount, limited to max 255 and min 0
+	for(int i = 0; i < copy.info_header.image_size / COLOR_COMPONENTS; i++) {
+		pixel *cur = copy.bitmap_data + i; 
+		cur->blue = fmin(255, fmax(0, cur->blue + amount));
+		cur->green = fmin(255, fmax(0, cur->green + amount));
+		cur->red = fmin(255, fmax(0, cur->red + amount));
 	}
 	return copy;
 }
@@ -116,15 +122,16 @@ int* get_average_pixel(bmp_image *bmp)
 	double color_calc[3];
 	//array to return at the end (=> dynamic memory)
 	int *average_colors = (int*) malloc(sizeof(int) * 3);
-	
-	//default is BGR => remaps color component sums to RGB
-	for(int i = 0; i < bmp->info_header.image_size; i += 3) {
-		color_calc[2] += *(bmp->bitmap_data + i);	
-		color_calc[1] += *(bmp->bitmap_data + i + 1);	
-		color_calc[0] += *(bmp->bitmap_data + i + 2);	
+
+	//add all pixel values (every component) together
+	for(int i = 0; i < bmp->info_header.image_size / COLOR_COMPONENTS; i++) {
+		pixel *cur = bmp->bitmap_data + i; 
+		color_calc[0] += cur->blue; 	
+		color_calc[1] += cur->green; 	
+		color_calc[2] += cur->red; 	
 	}
-	
-	//get averages for each RGB component, round doubles to int
+
+	//get averages for each component, round doubles to int
 	for(int i = 0; i <= 2; i++) {
 		average_colors[i] = round(color_calc[i] / (double)(bmp->info_header.image_size / 3));
 	}
@@ -136,4 +143,3 @@ void draw_line(bmp_image *bmp, int* start_pt, int* end_pt)
 {
 	//TODO(make linedrawing)
 }
-

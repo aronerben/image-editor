@@ -30,14 +30,21 @@ typedef struct {
 } info_header;
 #pragma pack()
 
+//easy pixel representation
+typedef struct {
+	uint8_t red;
+	uint8_t green;
+	uint8_t blue;
+} pixel;
+
 //struct to contain entire image (headers + data)
+//make bitmap data a single pointer, not 2D array => pointer arithmetics, but simpler
 typedef struct {
 	file_header file_header;
 	info_header info_header;
-	uint8_t *bitmap_data;
+	pixel *bitmap_data;
 } bmp_image;
 
-//MAYBE TODO(struct for pixel)
 
 /*
  * @brief		Parses bmp file into structs
