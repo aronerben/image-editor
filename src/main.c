@@ -1,4 +1,5 @@
-#include "bmp_editor.c"
+#include "bmp/bmp_manipulate.c"
+#include "bmp/bmp_draw.c"
 
 int main(int argc, char *argv[])
 {
@@ -17,9 +18,9 @@ int main(int argc, char *argv[])
 	}
 
 	//bmp edit functions, testing out
-	(void)get_average_pixel(bmp);
-	bmp_image copy = edit_brightness(bmp, -5); 
-	(void)get_average_pixel(bmp);
+	bmp_image copy = edit_brightness(bmp, -50); 
+	(void)mirror_horiz(&copy);
+	(void)mirror_vert(&copy);
 	(void)create_image(&copy);
 
 	//free bmp struct memory

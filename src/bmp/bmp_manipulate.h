@@ -1,50 +1,7 @@
 #ifndef TEST_H
 #define TEST_H
 
-#include <stdint.h>
-
-//compiler directive, saves struct in memory according to bmp standard (fileheader size 16 to 14)
-//required for proper fwrite() and fread() use
-#pragma pack(1)
-typedef struct {
-	uint16_t type;
-	uint32_t bmp_size;
-	uint32_t reserved;
-	uint32_t data_offset;
-} file_header;
-#pragma pack()
-
-#pragma pack(1)
-typedef struct {
-	uint32_t struct_size;
-	int32_t	width;
-	int32_t height;
-	uint16_t planes;
-	uint16_t bit_depth;
-	uint32_t compression;
-	uint32_t image_size;
-	int32_t x_res;
-	int32_t y_res;
-	uint32_t amount_color_used;
-	uint32_t amount_color_important;
-} info_header;
-#pragma pack()
-
-//easy pixel representation
-typedef struct {
-	uint8_t red;
-	uint8_t green;
-	uint8_t blue;
-} pixel;
-
-//struct to contain entire image (headers + data)
-//make bitmap data a single pointer, not 2D array => pointer arithmetics, but simpler
-typedef struct {
-	file_header file_header;
-	info_header info_header;
-	pixel *bitmap_data;
-} bmp_image;
-
+#include "bmp_general.h"
 
 /*
  * @brief		Parses bmp file into structs
@@ -96,13 +53,4 @@ bmp_image rotate(bmp_image *bmp, int angle);
  * @returns		Returns an array size 3 with RGB of average pixel 	
  */
 int* get_average_pixel(bmp_image *bmp);
-
-/*
- * @brief		Draws a line on the image between two given points
- * @param[in] bmp	Bmp struct to draw line on
- * @param[in] start_pt	Starting point for line
- * @param[in] end_pt	Ending point for line
- */
-void draw_line(bmp_image *bmp, int* start_pt, int* end_pt);
-
 #endif

@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h> 
-#include "bmp_editor.h"
+#include "bmp_manipulate.h"
+#include "bmp_general.h"
 
 #define BYTE_SIZE 1
 #define COLOR_COMPONENTS 3
@@ -137,9 +138,4 @@ int* get_average_pixel(bmp_image *bmp)
 	}
 
 	return average_colors;
-}
-
-void draw_line(bmp_image *bmp, int* start_pt, int* end_pt)
-{
-	//TODO(make linedrawing)
 }
