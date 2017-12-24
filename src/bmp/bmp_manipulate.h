@@ -4,15 +4,6 @@
 #include "bmp_general.h"
 
 /*
- * @brief		Parses bmp file into structs
- * @param[in] file	File to parse
- * @param[in] bmp	Bmp struct to fill
- * @returns 		Returns integer indicating success (valid bmp) or error
- */
-int parse_bmp_image(FILE *file, bmp_image *bmp);
-
-
-/*
  * @brief		Mirrors the image vertically
  * @param[in] bmp	Bmp struct to mirror
  */
@@ -23,13 +14,6 @@ void mirror_vert(bmp_image *bmp);
  * @param[in] bmp	Bmp struct to mirror
  */
 void mirror_horiz(bmp_image *bmp);
-
-
-/*
- * @brief		Creates a bmp image file from a bmp struct
- * @param[in] bmp	Bmp struct to create file from
- */
-void create_bmp_image(bmp_image *bmp);
 
 /*
  * @brief		Changes the brightness of the image, by increasing/decrease every pixels RGB components values

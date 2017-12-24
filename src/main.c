@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "bmp/bmp_general.c"
 #include "bmp/bmp_manipulate.c"
 #include "bmp/bmp_draw.c"
 

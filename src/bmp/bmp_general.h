@@ -45,4 +45,18 @@ typedef struct {
 	pixel *bitmap_data;
 } bmp_image;
 
+/*
+ * @brief		Parses bmp file into structs
+ * @param[in] file	File to parse
+ * @param[in] bmp	Bmp struct to fill
+ * @returns 		Returns integer indicating success (valid bmp) or error
+ */
+int parse_image(FILE *file, bmp_image *bmp);
+
+/*
+ * @brief		Creates a bmp image file from a bmp struct
+ * @param[in] bmp	Bmp struct to create file from
+ */
+void create_image(bmp_image *bmp);
+
 #endif
