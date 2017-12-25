@@ -1,5 +1,12 @@
 #ifndef BMP_DRAW_H
-#define BMP_DRAW_H
+#define BMP_DRAW_Hi
+
+//2d point used for drawing functions
+//(0,0) is bottom-left corner
+typedef struct {
+	uint32_t x;
+	uint32_t y;
+} point;
 
 /*
  * @brief		Sets a new color for a pixel
@@ -16,7 +23,7 @@ static void color_pixel(pixel *pixel, int *color);
  * @param[in] color	Line color
  * @param[in] thickness Line thickness	
  */
-void draw_line(bmp_image *bmp, int *start_pt, int *end_pt, int *color, int thickness);
+void draw_line(bmp_image *bmp, point *start_pt, point *end_pt, int *color, int thickness);
 
 #endif
 

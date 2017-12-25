@@ -21,10 +21,12 @@ int main(int argc, char *argv[])
 	}
 
 	//bmp edit functions, testing out
-	bmp_image copy = edit_brightness(bmp, -50); 
-	(void)mirror_horiz(&copy);
-	(void)mirror_vert(&copy);
-	(void)create_image(&copy);
+	point start = {0, 160};
+	point end = {235, 0};
+	int color[3] = {255, 255, 255};
+	int thickness = 1;
+	(void)draw_line(bmp, &start, &end, color, thickness); 
+	(void)create_image(bmp);
 
 	//free bmp struct memory
 	(void)free(bmp->bitmap_data);
