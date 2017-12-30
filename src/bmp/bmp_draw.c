@@ -6,7 +6,7 @@ static void color_pixel(pixel *pixel, int *color)
 	pixel->green = color[1];
 	pixel->red = color[2];
 }
-
+/*
 void draw_line(bmp_image *bmp, point *start_pt, point *end_pt, int *color, int thickness)
 {
 	//calc slope of line
@@ -21,3 +21,5 @@ void draw_line(bmp_image *bmp, point *start_pt, point *end_pt, int *color, int t
 	}
 	//TODO(implement THICKNESS)
 }
+*/
+
