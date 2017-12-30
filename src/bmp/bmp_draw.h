@@ -1,5 +1,7 @@
 #ifndef BMP_DRAW_H
-#define BMP_DRAW_Hi
+#define BMP_DRAW_H
+
+#include "bmp_general.h"
 
 //2d point used for drawing functions
 //(0,0) is bottom-left corner
@@ -14,7 +16,6 @@ typedef struct {
  * @param[in] color		Color as int components
  */
 static void color_pixel(pixel *pixel, int *color);
-
 /*
  * @brief			Draws a line on the image between two given points
  * @param[in] bmp		Bmp struct to draw line in

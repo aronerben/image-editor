@@ -1,6 +1,8 @@
 #ifndef BMP_GENERAL_H
 #define BMP_GENERAL_H
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <stdint.h>
 
 //compiler directive, saves struct in memory according to bmp standard (fileheader size 16 to 14)

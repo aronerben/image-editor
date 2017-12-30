@@ -16,7 +16,7 @@ void mirror_horiz(bmp_image *bmp)
 	int32_t image_width = bmp->info_header.width;
 
 	//go through every pixel row through to max height	
-	for(int i = 0; i < bmp->info_header.image_size / COLOR_COMPONENTS; i += image_width) {
+	for(unsigned int i = 0; i < bmp->info_header.image_size / COLOR_COMPONENTS; i += image_width) {
 		//swap pixels in a row by swapping the ends and moving to the middle from both sides
 		for(int j = 0; j < (image_width - 1) / 2; j++) {
 			//regular 2 way swap with temp variable
@@ -34,7 +34,7 @@ bmp_image edit_brightness(bmp_image *bmp, int amount)
 	bmp_image copy = *bmp;
 
 	//go through every pixels and increase by amount, limited to max 255 and min 0
-	for(int i = 0; i < copy.info_header.image_size / COLOR_COMPONENTS; i++) {
+	for(unsigned int i = 0; i < copy.info_header.image_size / COLOR_COMPONENTS; i++) {
 		pixel *cur = copy.bitmap_data + i; 
 		cur->blue = fmin(255, fmax(0, cur->blue + amount));
 		cur->green = fmin(255, fmax(0, cur->green + amount));
@@ -62,7 +62,7 @@ int* get_average_pixel(bmp_image *bmp)
 	int *average_colors = (int*) malloc(sizeof(int) * 3);
 
 	//add all pixel values (every component) together
-	for(int i = 0; i < bmp->info_header.image_size / COLOR_COMPONENTS; i++) {
+	for(unsigned int i = 0; i < bmp->info_header.image_size / COLOR_COMPONENTS; i++) {
 		pixel *cur = bmp->bitmap_data + i; 
 		color_calc[0] += cur->blue; 	
 		color_calc[1] += cur->green; 	
