@@ -3,4 +3,6 @@ set a fix system for (0,0) (either bottom-left, bmp standard, or top-left, compu
 set a fix system for rgb order (either bgr, bmp standard, or rgb)
 draw line (bresenham), make fillable (varargs?)
 draw circle (bresenham maybe), make fillable (varargs?)
+make both antialiased with WU algo
 edit distance between pictures (maybe simplified, general distance, maybe ignore brightness)
+make UI, handle all invalid inputs by user

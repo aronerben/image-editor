@@ -6,8 +6,8 @@
 //2d point used for drawing functions
 //(0,0) is bottom-left corner
 typedef struct {
-	uint32_t x;
-	uint32_t y;
+	int32_t x;
+	int32_t y;
 } point;
 
 /*

@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "bmp/bmp_general.c"
 #include "bmp/bmp_manipulate.c"
 #include "bmp/bmp_draw.c"
@@ -21,14 +19,12 @@ int main(int argc, char *argv[])
 	}
 
 	//bmp edit functions, testing out
-	/*
-	point start = {0, 160};
-	point end = {235, 0};
+	point start = {240, 164};
+	point end = {0, 0};
 	int color[3] = {255, 255, 255};
 	int thickness = 1;
 	(void)draw_line(bmp, &start, &end, color, thickness); 
 	(void)create_image(bmp);
-	*/
 
 	//free bmp struct memory
 	(void)free(bmp->bitmap_data);
